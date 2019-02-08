@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
-import droidkaigi.github.io.challenge2019.data.api.response.Item
 import droidkaigi.github.io.challenge2019.databinding.ItemStoryBinding
 
 
 class StoryAdapter(
-    var stories: MutableList<Item?>,
-    private val onClickItem: ((Item) -> Unit)? = null,
-    private val onClickMenuItem: ((Item, Int) -> Unit)? = null,
+    var stories: MutableList<StoryItemViewModel?>,
+    private val onClickItem: ((StoryItemViewModel) -> Unit)? = null,
+    private val onClickMenuItem: ((StoryItemViewModel, Int) -> Unit)? = null,
     var alreadyReadStories: Set<String>
 ) : RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
 
