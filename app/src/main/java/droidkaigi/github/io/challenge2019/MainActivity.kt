@@ -119,11 +119,11 @@ class MainActivity : BaseActivity() {
             return
         }
 
-        progressView.visibility = Util.setVisibility(true)
         loadTopStories()
     }
 
     private fun loadTopStories() {
+        progressView.visibility = View.VISIBLE
         hackerNewsApi.getTopStories().enqueue(object : Callback<List<Long>> {
 
             override fun onResponse(call: Call<List<Long>>, response: Response<List<Long>>) {
@@ -199,7 +199,6 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.refresh -> {
-                progressView.visibility = Util.setVisibility(true)
                 loadTopStories()
                 return true
             }

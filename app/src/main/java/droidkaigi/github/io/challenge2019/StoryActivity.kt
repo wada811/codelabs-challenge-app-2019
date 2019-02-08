@@ -12,6 +12,8 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
+import android.widget.ScrollView
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.moshi.Types
 import droidkaigi.github.io.challenge2019.data.api.HackerNewsApi
 import droidkaigi.github.io.challenge2019.data.api.response.Item
@@ -29,8 +31,9 @@ class StoryActivity : BaseActivity() {
         private const val STATE_COMMENTS = "comments"
     }
 
+    private lateinit var contentScrollView: ScrollView
     private lateinit var webView: WebView
-    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var progressView: ProgressBar
 
     private lateinit var commentAdapter: CommentAdapter
@@ -50,6 +53,7 @@ class StoryActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        contentScrollView = findViewById(R.id.content)
         webView = findViewById(R.id.web_view)
         recyclerView = findViewById(R.id.comment_recycler)
         progressView = findViewById(R.id.progress)
@@ -83,7 +87,6 @@ class StoryActivity : BaseActivity() {
             return
         }
 
-        progressView.visibility = View.VISIBLE
         loadUrlAndComments()
     }
 
@@ -94,6 +97,12 @@ class StoryActivity : BaseActivity() {
 
         hideProgressTask = @SuppressLint("StaticFieldLeak") object : AsyncTask<Unit, Unit, Unit>() {
 
+            override fun onPreExecute() {
+                super.onPreExecute()
+                contentScrollView.visibility = View.GONE
+                progressView.visibility = View.VISIBLE
+            }
+
             override fun doInBackground(vararg unit: Unit?) {
                 try {
                     progressLatch.await()
@@ -103,7 +112,8 @@ class StoryActivity : BaseActivity() {
             }
 
             override fun onPostExecute(result: Unit?) {
-                progressView.visibility = Util.setVisibility(false)
+                progressView.visibility = View.GONE
+                contentScrollView.visibility = View.VISIBLE
             }
         }
 
@@ -163,7 +173,6 @@ class StoryActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.refresh -> {
-                progressView.visibility = Util.setVisibility(true)
                 loadUrlAndComments()
                 return true
             }
