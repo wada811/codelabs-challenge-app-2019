@@ -58,9 +58,7 @@ class StoryActivity : BaseActivity() {
             itemJsonAdapter.fromJson(it)
         }
 
-        val retrofit = createRetrofit("https://hacker-news.firebaseio.com/v0/")
-
-        hackerNewsApi = retrofit.create(HackerNewsApi::class.java)
+        hackerNewsApi = HackerNewsApi.apiClient()
 
         recyclerView.isNestedScrollingEnabled = false
         val itemDecoration = androidx.recyclerview.widget.DividerItemDecoration(recyclerView.context, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)

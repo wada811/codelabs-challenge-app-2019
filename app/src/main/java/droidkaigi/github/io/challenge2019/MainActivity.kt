@@ -54,35 +54,33 @@ class MainActivity : BaseActivity() {
         progressView = findViewById(R.id.progress)
         swipeRefreshLayout = findViewById(R.id.swipe_refresh)
 
-        val retrofit = createRetrofit("https://hacker-news.firebaseio.com/v0/")
-
-        hackerNewsApi = retrofit.create(HackerNewsApi::class.java)
+        hackerNewsApi = HackerNewsApi.apiClient()
 
         val itemDecoration = DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(itemDecoration)
         storyAdapter = StoryAdapter(
             stories = mutableListOf(),
-            onClickItem = { item ->
-                val itemJson = itemJsonAdapter.toJson(item)
+            onClickItem = { itemViewModel ->
+                val itemJson = itemJsonAdapter.toJson(itemViewModel.item)
                 val intent = Intent(this@MainActivity, StoryActivity::class.java).apply {
                     putExtra(StoryActivity.EXTRA_ITEM_JSON, itemJson)
                 }
                 startActivityForResult(intent)
             },
-            onClickMenuItem = { item, menuItemId ->
+            onClickMenuItem = { itemViewModel, menuItemId ->
                 when (menuItemId) {
                     R.id.copy_url -> {
                         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        clipboard.primaryClip = ClipData.newPlainText("url", item.url)
+                        clipboard.primaryClip = ClipData.newPlainText("url", itemViewModel.url)
                     }
                     R.id.refresh -> {
-                        hackerNewsApi.getItem(item.id).enqueue(object : Callback<Item> {
+                        hackerNewsApi.getItem(itemViewModel.id).enqueue(object : Callback<Item> {
                             override fun onResponse(call: Call<Item>, response: Response<Item>) {
                                 response.body()?.let { newItem ->
-                                    val index = storyAdapter.stories.indexOf(item)
+                                    val index = storyAdapter.stories.indexOf(itemViewModel)
                                     if (index == -1) return
 
-                                    storyAdapter.stories[index] = newItem
+                                    storyAdapter.stories[index] = StoryItemViewModel(newItem)
                                     runOnUiThread {
                                         storyAdapter.alreadyReadStories = ArticlePreferences.getArticleIds(this@MainActivity)
                                         storyAdapter.notifyItemChanged(index)
@@ -110,7 +108,7 @@ class MainActivity : BaseActivity() {
         }
 
         if (savedStories != null) {
-            storyAdapter.stories = savedStories.toMutableList()
+            storyAdapter.stories = savedStories.map { item -> item?.let { StoryItemViewModel(it) } }.toMutableList()
             storyAdapter.alreadyReadStories = ArticlePreferences.getArticleIds(this@MainActivity)
             storyAdapter.notifyDataSetChanged()
             return
@@ -161,7 +159,7 @@ class MainActivity : BaseActivity() {
                         override fun onPostExecute(items: List<Item?>) {
                             progressView.visibility = View.GONE
                             swipeRefreshLayout.isRefreshing = false
-                            storyAdapter.stories = items.toMutableList()
+                            storyAdapter.stories = items.map { item -> item?.let { StoryItemViewModel(it) } }.toMutableList()
                             storyAdapter.alreadyReadStories = ArticlePreferences.getArticleIds(this@MainActivity)
                             storyAdapter.notifyDataSetChanged()
                         }
@@ -204,7 +202,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(STATE_STORIES, itemsJsonAdapter.toJson(storyAdapter.stories))
+        outState.putString(STATE_STORIES, itemsJsonAdapter.toJson(storyAdapter.stories.map { it?.item }))
 
         super.onSaveInstanceState(outState)
     }
