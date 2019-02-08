@@ -68,6 +68,8 @@ class StoryActivity : BaseActivity() {
 
         if (item == null) return
 
+        title = item!!.title
+
         val savedComments = savedInstanceState?.let { bundle ->
             bundle.getString(STATE_COMMENTS)?.let { itemsJson ->
                 itemsJsonAdapter.fromJson(itemsJson)
