@@ -9,6 +9,11 @@ import timber.log.Timber.DebugTree
 
 
 class MyApplication : Application() {
+    companion object {
+        private const val Tag = "Codelabs"
+        fun tag(tag: String) = "$Tag:$tag"
+    }
+
     override fun onCreate() {
         super.onCreate()
 

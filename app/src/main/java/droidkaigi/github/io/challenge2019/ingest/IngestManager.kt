@@ -1,5 +1,7 @@
 package droidkaigi.github.io.challenge2019.ingest
 
+import droidkaigi.github.io.challenge2019.MyApplication
+import timber.log.Timber
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -31,6 +33,8 @@ class IngestManager {
                 latch.await()
                 200
             }
+        }.also {
+            Timber.tag(MyApplication.tag("Tracking")).d("IngestManager#track: $it")
         }
     }
 }
