@@ -45,6 +45,14 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dummy ad"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                />
+
         </LinearLayout>
 
     </ScrollView>
