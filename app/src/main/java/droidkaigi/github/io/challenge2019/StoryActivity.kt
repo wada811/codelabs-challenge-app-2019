@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebResourceError
@@ -32,7 +30,7 @@ class StoryActivity : BaseActivity() {
     }
 
     private lateinit var webView: WebView
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var progressView: ProgressBar
 
     private lateinit var commentAdapter: CommentAdapter
@@ -65,7 +63,7 @@ class StoryActivity : BaseActivity() {
         hackerNewsApi = retrofit.create(HackerNewsApi::class.java)
 
         recyclerView.isNestedScrollingEnabled = false
-        val itemDecoration = DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
+        val itemDecoration = androidx.recyclerview.widget.DividerItemDecoration(recyclerView.context, androidx.recyclerview.widget.DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(itemDecoration)
         commentAdapter = CommentAdapter(emptyList())
         recyclerView.adapter = commentAdapter
@@ -163,7 +161,7 @@ class StoryActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        return when (item?.itemId) {
             R.id.refresh -> {
                 progressView.visibility = Util.setVisibility(true)
                 loadUrlAndComments()
@@ -181,10 +179,8 @@ class StoryActivity : BaseActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        outState?.apply {
-            putString(STATE_COMMENTS, itemsJsonAdapter.toJson(commentAdapter.comments))
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(STATE_COMMENTS, itemsJsonAdapter.toJson(commentAdapter.comments))
 
         super.onSaveInstanceState(outState)
     }

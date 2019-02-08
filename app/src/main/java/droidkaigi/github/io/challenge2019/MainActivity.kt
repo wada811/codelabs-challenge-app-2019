@@ -8,13 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.squareup.moshi.Types
 import droidkaigi.github.io.challenge2019.data.api.HackerNewsApi
 import droidkaigi.github.io.challenge2019.data.api.response.Item
@@ -81,7 +80,7 @@ class MainActivity : BaseActivity() {
                             override fun onResponse(call: Call<Item>, response: Response<Item>) {
                                 response.body()?.let { newItem ->
                                     val index = storyAdapter.stories.indexOf(item)
-                                    if (index == -1 ) return
+                                    if (index == -1) return
 
                                     storyAdapter.stories[index] = newItem
                                     runOnUiThread {
@@ -179,7 +178,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when(resultCode) {
+        when (resultCode) {
             Activity.RESULT_OK -> {
                 data?.getLongExtra(StoryActivity.READ_ARTICLE_ID, 0L)?.let { id ->
                     if (id != 0L) {
@@ -204,10 +203,8 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        outState?.apply {
-            putString(STATE_STORIES, itemsJsonAdapter.toJson(storyAdapter.stories))
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(STATE_STORIES, itemsJsonAdapter.toJson(storyAdapter.stories))
 
         super.onSaveInstanceState(outState)
     }

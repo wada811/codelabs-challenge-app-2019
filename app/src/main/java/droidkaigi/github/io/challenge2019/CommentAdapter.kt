@@ -1,8 +1,8 @@
 package droidkaigi.github.io.challenge2019
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import droidkaigi.github.io.challenge2019.data.api.response.Item
 import droidkaigi.github.io.challenge2019.databinding.ItemCommentBinding
 
