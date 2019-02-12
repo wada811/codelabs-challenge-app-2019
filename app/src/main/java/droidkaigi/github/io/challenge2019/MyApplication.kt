@@ -2,6 +2,7 @@ package droidkaigi.github.io.challenge2019
 
 import android.app.Application
 import android.os.Build
+import android.widget.Toast
 import com.facebook.stetho.Stetho
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
@@ -12,10 +13,13 @@ class MyApplication : Application() {
     companion object {
         private const val Tag = "Codelabs"
         fun tag(tag: String) = "$Tag:$tag"
+
+        lateinit var Instance: MyApplication
     }
 
     override fun onCreate() {
         super.onCreate()
+        Instance = this
 
         JodaTimeAndroid.init(this)
 
@@ -27,5 +31,10 @@ class MyApplication : Application() {
 
     private fun isRoboUnitTest(): Boolean {
         return "robolectric" == Build.FINGERPRINT
+    }
+
+    fun showError(throwable: Throwable) {
+        Timber.tag("error").v(throwable)
+        Toast.makeText(applicationContext, throwable.message, Toast.LENGTH_SHORT).show()
     }
 }

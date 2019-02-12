@@ -1,10 +1,8 @@
 package droidkaigi.github.io.challenge2019
 
 import android.content.Intent
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.moshi.Moshi
 
@@ -15,11 +13,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     internal val moshi = Moshi.Builder().build()
-
-    fun showError(throwable: Throwable) {
-        Log.v("error", throwable.message)
-        Toast.makeText(baseContext, throwable.message, Toast.LENGTH_SHORT).show()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_menu, menu)
