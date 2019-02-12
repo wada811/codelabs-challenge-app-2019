@@ -13,6 +13,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.ScrollView
+import androidx.annotation.ContentView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.moshi.Types
 import droidkaigi.github.io.challenge2019.data.api.HackerNewsApi
@@ -23,6 +24,7 @@ import retrofit2.Response
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
+@ContentView(R.layout.activity_story)
 class StoryActivity : BaseActivity() {
 
     companion object {
@@ -46,10 +48,6 @@ class StoryActivity : BaseActivity() {
         moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
 
     private var item: Item? = null
-
-    override fun getContentView(): Int {
-        return R.layout.activity_story
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

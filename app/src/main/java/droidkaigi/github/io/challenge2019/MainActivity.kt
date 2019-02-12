@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import androidx.annotation.ContentView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -27,6 +28,7 @@ import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
+@ContentView(R.layout.activity_main)
 class MainActivity : BaseActivity() {
 
     companion object {
@@ -46,11 +48,6 @@ class MainActivity : BaseActivity() {
         moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
 
     private val ingestManager = IngestManager()
-
-
-    override fun getContentView(): Int {
-        return R.layout.activity_main
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
