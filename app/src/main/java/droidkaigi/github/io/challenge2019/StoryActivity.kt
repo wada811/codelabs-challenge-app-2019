@@ -15,6 +15,7 @@ import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import androidx.annotation.ContentView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.moshi.Types
 import droidkaigi.github.io.challenge2019.data.api.HackerNewsApi
@@ -26,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
 @ContentView(R.layout.activity_story)
-class StoryActivity : BaseActivity() {
+class StoryActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ITEM_JSON = "droidkaigi.github.io.challenge2019.EXTRA_ITEM_JSON"
@@ -44,9 +45,9 @@ class StoryActivity : BaseActivity() {
 
     private var getCommentsTask: AsyncTask<Long, Unit, List<Item?>>? = null
     private var hideProgressTask: AsyncTask<Unit, Unit, Unit>? = null
-    private val itemJsonAdapter = moshi.adapter(Item::class.java)
+    private val itemJsonAdapter = MyApplication.Instance.moshi.adapter(Item::class.java)
     private val itemsJsonAdapter =
-        moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
+        MyApplication.Instance.moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
 
     private var item: Item? = null
 

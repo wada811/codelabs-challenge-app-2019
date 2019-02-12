@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.annotation.ContentView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
 @ContentView(R.layout.activity_main)
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val STATE_STORIES = "stories"
@@ -45,9 +46,9 @@ class MainActivity : BaseActivity() {
     private lateinit var hackerNewsApi: HackerNewsApi
 
     private var getStoriesTask: AsyncTask<Long, Unit, List<Item?>>? = null
-    private val itemJsonAdapter = moshi.adapter(Item::class.java)
+    private val itemJsonAdapter = MyApplication.Instance.moshi.adapter(Item::class.java)
     private val itemsJsonAdapter =
-        moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
+        MyApplication.Instance.moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
 
     private val ingestManager = IngestManager()
 
