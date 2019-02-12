@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebResourceError
@@ -168,18 +169,27 @@ class StoryActivity : BaseActivity() {
         getCommentsTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, *item!!.kids.toTypedArray())
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
-            R.id.refresh -> {
-                loadUrlAndComments()
-                return true
-            }
             android.R.id.home -> {
                 val intent = Intent().apply {
                     putExtra(READ_ARTICLE_ID, this@StoryActivity.item?.id)
                 }
                 setResult(Activity.RESULT_OK, intent)
                 finish()
+                return true
+            }
+            R.id.refresh -> {
+                loadUrlAndComments()
+                return true
+            }
+            R.id.exit -> {
+                this.finish()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
