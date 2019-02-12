@@ -8,9 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import androidx.annotation.ContentView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -27,10 +30,12 @@ import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
-class MainActivity : BaseActivity() {
+@ContentView(R.layout.activity_main)
+class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val STATE_STORIES = "stories"
+        private const val REQUEST_CODE = 1
     }
 
     private lateinit var recyclerView: RecyclerView
@@ -41,16 +46,11 @@ class MainActivity : BaseActivity() {
     private lateinit var hackerNewsApi: HackerNewsApi
 
     private var getStoriesTask: AsyncTask<Long, Unit, List<Item?>>? = null
-    private val itemJsonAdapter = moshi.adapter(Item::class.java)
+    private val itemJsonAdapter = MyApplication.Instance.moshi.adapter(Item::class.java)
     private val itemsJsonAdapter =
-        moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
+        MyApplication.Instance.moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
 
     private val ingestManager = IngestManager()
-
-
-    override fun getContentView(): Int {
-        return R.layout.activity_main
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +69,7 @@ class MainActivity : BaseActivity() {
                 val intent = Intent(this@MainActivity, StoryActivity::class.java).apply {
                     putExtra(StoryActivity.EXTRA_ITEM_JSON, itemJson)
                 }
-                startActivityForResult(intent)
+                startActivityForResult(intent, REQUEST_CODE)
             },
             onClickMenuItem = { itemViewModel, menuItemId ->
                 when (menuItemId) {
@@ -94,7 +94,7 @@ class MainActivity : BaseActivity() {
                             }
 
                             override fun onFailure(call: Call<Item>, t: Throwable) {
-                                showError(t)
+                                MyApplication.Instance.showError(t)
                             }
                         })
                     }
@@ -145,7 +145,7 @@ class MainActivity : BaseActivity() {
                                     }
 
                                     override fun onFailure(call: Call<Item>, t: Throwable) {
-                                        showError(t)
+                                        MyApplication.Instance.showError(t)
                                         latch.countDown()
                                     }
                                 })
@@ -154,7 +154,7 @@ class MainActivity : BaseActivity() {
                             try {
                                 latch.await()
                             } catch (e: InterruptedException) {
-                                showError(e)
+                                MyApplication.Instance.showError(e)
                                 return emptyList()
                             }
 
@@ -176,7 +176,7 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<List<Long>>, t: Throwable) {
-                showError(t)
+                MyApplication.Instance.showError(t)
             }
         })
     }
@@ -196,10 +196,19 @@ class MainActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.refresh -> {
                 loadTopStories()
+                return true
+            }
+            R.id.exit -> {
+                this.finish()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
