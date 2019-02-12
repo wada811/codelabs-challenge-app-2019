@@ -1,16 +1,11 @@
 package droidkaigi.github.io.challenge2019
 
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.moshi.Moshi
 
 abstract class BaseActivity : AppCompatActivity() {
-
-    companion object {
-        const val ACTIVITY_REQUEST = 1
-    }
 
     internal val moshi = Moshi.Builder().build()
 
@@ -26,12 +21,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 return true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    fun startActivityForResult(intent: Intent?) {
-        intent?.let { intent2 ->
-            startActivityForResult(intent2, ACTIVITY_REQUEST)
         }
     }
 }

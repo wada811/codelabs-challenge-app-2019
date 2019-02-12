@@ -33,6 +33,7 @@ class MainActivity : BaseActivity() {
 
     companion object {
         private const val STATE_STORIES = "stories"
+        private const val REQUEST_CODE = 1
     }
 
     private lateinit var recyclerView: RecyclerView
@@ -66,7 +67,7 @@ class MainActivity : BaseActivity() {
                 val intent = Intent(this@MainActivity, StoryActivity::class.java).apply {
                     putExtra(StoryActivity.EXTRA_ITEM_JSON, itemJson)
                 }
-                startActivityForResult(intent)
+                startActivityForResult(intent, REQUEST_CODE)
             },
             onClickMenuItem = { itemViewModel, menuItemId ->
                 when (menuItemId) {
