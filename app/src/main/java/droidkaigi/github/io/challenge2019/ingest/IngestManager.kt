@@ -1,6 +1,6 @@
 package droidkaigi.github.io.challenge2019.ingest
 
-import droidkaigi.github.io.challenge2019.MyApplication
+import droidkaigi.github.io.challenge2019.platform.MyApplication
 import timber.log.Timber
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit

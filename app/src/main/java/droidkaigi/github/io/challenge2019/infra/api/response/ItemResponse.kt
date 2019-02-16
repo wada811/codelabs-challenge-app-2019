@@ -1,10 +1,10 @@
-package droidkaigi.github.io.challenge2019.data.api.response
+package droidkaigi.github.io.challenge2019.infra.api.response
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Item(
+data class ItemResponse(
     @Json(name = "id")
     val id: Long = NO_ID,
     @Json(name = "deleted")

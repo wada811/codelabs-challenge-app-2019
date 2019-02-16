@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
@@ -7,14 +8,9 @@
     <data>
 
         <variable
-            name="item"
-            type="droidkaigi.github.io.challenge2019.data.api.response.Item"
+            name="comment"
+            type="droidkaigi.github.io.challenge2019.platform.screen.detail.CommentViewModel"
             />
-
-        <import type="android.text.Html" />
-
-        <import type="android.view.View" />
-
     </data>
 
 
@@ -28,7 +24,7 @@
             android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.author}"
+            android:text="@{comment.author}"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="all"
-            android:text="@{item.text != null ? Html.fromHtml(item.text) : null}"
+            android:text="@{comment.text}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:visibility="@{item.text != null ? View.VISIBLE : View.GONE}"
+            android:visibility="@{comment.visibility}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/author"

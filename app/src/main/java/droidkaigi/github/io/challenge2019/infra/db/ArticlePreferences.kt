@@ -1,4 +1,4 @@
-package droidkaigi.github.io.challenge2019.data.db
+package droidkaigi.github.io.challenge2019.infra.db
 
 import android.content.Context
 import android.preference.PreferenceManager

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
@@ -7,8 +8,8 @@
     <data>
 
         <variable
-            name="item"
-            type="droidkaigi.github.io.challenge2019.StoryItemViewModel"
+            name="viewModel"
+            type="droidkaigi.github.io.challenge2019.platform.screen.list.StoryListItemViewModel"
             />
 
         <variable
@@ -29,7 +30,7 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{item.title}"
+            android:text="@{viewModel.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@{alreadyRead ? @color/disabledText: @android:color/black}"
             app:layout_constraintEnd_toStartOf="@id/menu_button"
@@ -53,7 +54,7 @@
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.time}"
+            android:text="@{viewModel.time}"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +67,7 @@
             android:id="@+id/url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.url}"
+            android:text="@{viewModel.url}"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
             android:id="@+id/points_and_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.scoreAndAuthor}"
+            android:text="@{viewModel.scoreAndAuthor}"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@{alreadyRead ? @color/disabledText: @android:color/black}"
             app:layout_constraintBottom_toBottomOf="parent"
