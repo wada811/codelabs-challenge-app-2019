@@ -26,7 +26,6 @@ import droidkaigi.github.io.challenge2019.platform.MyApplication
 import droidkaigi.github.io.challenge2019.platform.screen.detail.StoryDetailActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.story_list_activity.swipeRefreshLayout
 import timber.log.Timber
 
 @ContentView(R.layout.story_list_activity)
@@ -91,7 +90,7 @@ class StoryListActivity : AppCompatActivity() {
         )
         binding.itemRecyclerView.adapter = storyListItemAdapter
 
-        swipeRefreshLayout.setOnRefreshListener { loadTopStories() }
+        binding.swipeRefreshLayout.setOnRefreshListener { loadTopStories() }
 
         val savedStories = savedInstanceState?.let { bundle ->
             bundle.getString(STATE_STORIES)?.let { storiesJson ->
