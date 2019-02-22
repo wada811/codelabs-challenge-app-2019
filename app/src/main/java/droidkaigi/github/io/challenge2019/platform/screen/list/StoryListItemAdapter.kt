@@ -12,15 +12,13 @@ import droidkaigi.github.io.challenge2019.platform.screen.list.StoryListItemAdap
 class StoryListItemAdapter(
     var stories: MutableList<StoryListItemViewModel>,
     private val onClickItem: ((StoryListItemViewModel) -> Unit)? = null,
-    private val onClickMenuItem: ((StoryListItemViewModel, Int) -> Unit)? = null,
-    var alreadyReadStories: Set<String>
+    private val onClickMenuItem: ((StoryListItemViewModel, Int) -> Unit)? = null
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     class ViewHolder(val binding: StoryListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = StoryListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(StoryListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount(): Int = stories.size
@@ -28,12 +26,6 @@ class StoryListItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val viewModel = stories[position]
 
-        holder.binding.alreadyRead = false
-        alreadyReadStories.forEach { id ->
-            if (id.toLong() == viewModel.id) {
-                holder.binding.alreadyRead = true
-            }
-        }
         holder.binding.viewModel = viewModel
         holder.binding.root.setOnClickListener {
             onClickItem?.invoke(viewModel)
@@ -45,9 +37,8 @@ class StoryListItemAdapter(
                 val menuItemId = menuItem.itemId
                 when (menuItemId) {
                     R.id.copy_url,
-                    R.id.refresh -> {
+                    R.id.refresh -> true.also {
                         onClickMenuItem?.invoke(viewModel, menuItemId)
-                        true
                     }
                     else -> false
                 }

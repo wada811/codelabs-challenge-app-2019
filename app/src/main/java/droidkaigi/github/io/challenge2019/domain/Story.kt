@@ -8,5 +8,13 @@ data class Story(
     val kids: List<Long> = emptyList(),
     val url: String = "",
     val score: Int = 0,
-    val title: String = ""
-)
+    val title: String = "",
+    private val _isRead: Boolean
+) {
+    var isRead: Boolean = _isRead
+        private set
+
+    fun read() {
+        isRead = !isRead
+    }
+}

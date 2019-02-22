@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
 import androidx.annotation.ContentView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,15 +16,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.squareup.moshi.Types
 import com.wada811.lifecycledisposable.disposeOnLifecycle
 import droidkaigi.github.io.challenge2019.R
 import droidkaigi.github.io.challenge2019.databinding.StoryListActivityBinding
 import droidkaigi.github.io.challenge2019.domain.Story
-import droidkaigi.github.io.challenge2019.infra.db.ArticlePreferences
-import droidkaigi.github.io.challenge2019.infra.db.ArticlePreferences.Companion.saveArticleIds
 import droidkaigi.github.io.challenge2019.ingest.IngestManager
 import droidkaigi.github.io.challenge2019.platform.MyApplication
 import droidkaigi.github.io.challenge2019.platform.screen.detail.StoryDetailActivity
@@ -75,7 +70,7 @@ class StoryListActivity : AppCompatActivity() {
                         trackAction()
                     }
                     R.id.refresh -> {
-                        MyApplication.Instance.itemRepository.getStory(itemViewModel.id)
+                        MyApplication.Instance.storyService.getStory(itemViewModel.id)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({ item ->
@@ -84,7 +79,6 @@ class StoryListActivity : AppCompatActivity() {
 
                                 storyListItemAdapter.stories[index] = StoryListItemViewModel(item)
                                 runOnUiThread {
-                                    storyListItemAdapter.alreadyReadStories = ArticlePreferences.getArticleIds(this@StoryListActivity)
                                     storyListItemAdapter.notifyItemChanged(index)
                                 }
                             }, { e ->
@@ -93,8 +87,7 @@ class StoryListActivity : AppCompatActivity() {
                             .disposeOnLifecycle(this, ON_DESTROY)
                     }
                 }
-            },
-            alreadyReadStories = ArticlePreferences.getArticleIds(this)
+            }
         )
         binding.itemRecyclerView.adapter = storyListItemAdapter
 
@@ -108,7 +101,6 @@ class StoryListActivity : AppCompatActivity() {
 
         if (savedStories != null) {
             storyListItemAdapter.stories = savedStories.map { story -> StoryListItemViewModel(story) }.toMutableList()
-            storyListItemAdapter.alreadyReadStories = ArticlePreferences.getArticleIds(this@StoryListActivity)
             storyListItemAdapter.notifyDataSetChanged()
             return
         }
@@ -118,14 +110,13 @@ class StoryListActivity : AppCompatActivity() {
 
     private fun loadTopStories() {
         binding.progressView.visibility = View.VISIBLE
-        MyApplication.Instance.itemRepository.getTopStories()
+        MyApplication.Instance.storyService.getTopStories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ stories ->
                 binding.progressView.visibility = View.GONE
                 binding.swipeRefreshLayout.isRefreshing = false
                 storyListItemAdapter.stories = stories.map { story -> StoryListItemViewModel(story) }.toMutableList()
-                storyListItemAdapter.alreadyReadStories = ArticlePreferences.getArticleIds(this@StoryListActivity)
                 storyListItemAdapter.notifyDataSetChanged()
                 trackPageView()
             }, { e ->
@@ -139,8 +130,8 @@ class StoryListActivity : AppCompatActivity() {
             Activity.RESULT_OK -> {
                 data?.getLongExtra(StoryDetailActivity.READ_ARTICLE_ID, 0L)?.let { id ->
                     if (id != 0L) {
-                        saveArticleIds(this, id.toString())
-                        storyListItemAdapter.alreadyReadStories = ArticlePreferences.getArticleIds(this)
+                        MyApplication.Instance.storyService.saveReadStatus(id)
+                        storyListItemAdapter.stories.filter { it.id == id }.forEach { it.read() }
                         storyListItemAdapter.notifyDataSetChanged()
                     }
                 }

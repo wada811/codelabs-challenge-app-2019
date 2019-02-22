@@ -121,7 +121,7 @@ class StoryDetailActivity : AppCompatActivity() {
             }
         }
         binding.webView.loadUrl(story.url)
-        MyApplication.Instance.itemRepository.getComments(story)
+        MyApplication.Instance.storyService.getComments(story)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ comments ->

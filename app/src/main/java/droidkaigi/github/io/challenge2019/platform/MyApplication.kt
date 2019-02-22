@@ -7,7 +7,9 @@ import com.facebook.stetho.Stetho
 import com.squareup.moshi.Moshi
 import droidkaigi.github.io.challenge2019.BuildConfig
 import droidkaigi.github.io.challenge2019.infra.api.HackerNewsApi
-import droidkaigi.github.io.challenge2019.infra.repository.ItemRepository
+import droidkaigi.github.io.challenge2019.infra.db.ArticlePreferences
+import droidkaigi.github.io.challenge2019.infra.repository.StoryRepository
+import droidkaigi.github.io.challenge2019.service.StoryService
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -21,8 +23,8 @@ class MyApplication : Application() {
         lateinit var Instance: MyApplication
     }
 
-    val itemRepository = ItemRepository(HackerNewsApi.apiClient())
-    val moshi = Moshi.Builder().build()
+    val storyService: StoryService = StoryService(StoryRepository(HackerNewsApi.apiClient(), ArticlePreferences(this)))
+    val moshi: Moshi = Moshi.Builder().build()
 
     override fun onCreate() {
         super.onCreate()

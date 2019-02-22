@@ -11,4 +11,10 @@ class StoryListItemViewModel(val story: Story) : ViewModel() {
     val time = DateTimeFormat.forPattern("yyyy/M/d H:MM").print(TimeUnit.SECONDS.toMillis(story.time))!!
     val url = story.url
     val scoreAndAuthor = "${story.score} points by ${story.author}"
+    val isRead: Boolean
+        get() = story.isRead
+
+    fun read() {
+        story.read()
+    }
 }
