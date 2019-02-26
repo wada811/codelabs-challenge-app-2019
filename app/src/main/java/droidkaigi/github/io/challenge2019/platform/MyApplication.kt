@@ -4,7 +4,6 @@ import android.app.Application
 import android.os.Build
 import android.widget.Toast
 import com.facebook.stetho.Stetho
-import com.squareup.moshi.Moshi
 import droidkaigi.github.io.challenge2019.BuildConfig
 import droidkaigi.github.io.challenge2019.infra.api.HackerNewsApi
 import droidkaigi.github.io.challenge2019.infra.db.ArticlePreferences
@@ -24,7 +23,6 @@ class MyApplication : Application() {
     }
 
     val storyService: StoryService = StoryService(StoryRepository(HackerNewsApi.apiClient(), ArticlePreferences(this)))
-    val moshi: Moshi = Moshi.Builder().build()
 
     override fun onCreate() {
         super.onCreate()

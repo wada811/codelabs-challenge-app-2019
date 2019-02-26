@@ -13,19 +13,19 @@ class StoryRepository(
     private val db: ArticlePreferences
 ) {
 
-    fun getTopStories(): Single<List<droidkaigi.github.io.challenge2019.domain.Story>> {
+    fun getTopStories(): Single<List<Story>> {
         return api.getTopStories()
             .toObservable()
-            .take(20)
             .flatMapIterable { it }
+            .take(20)
             .flatMapSingle({ getStory(it) }, true)
             .toList()
     }
 
-    fun getStory(id: Long): Single<droidkaigi.github.io.challenge2019.domain.Story> {
+    fun getStory(id: Long): Single<Story> {
         return api.getItem(id)
             .map { response ->
-                droidkaigi.github.io.challenge2019.domain.Story(
+                Story(
                     response.id,
                     response.author,
                     response.time,
@@ -45,10 +45,10 @@ class StoryRepository(
         }
     }
 
-    fun getComments(story: droidkaigi.github.io.challenge2019.domain.Story): Single<List<droidkaigi.github.io.challenge2019.domain.Comment>> {
+    fun getComments(story: Story): Single<List<Comment>> {
         return Observable.fromIterable(story.kids)
             .flatMapSingle({ api.getItem(it) }, true)
-            .map { droidkaigi.github.io.challenge2019.domain.Comment(it.author, it.text) }
+            .map { Comment(it.author, it.text) }
             .toList()
     }
 }
