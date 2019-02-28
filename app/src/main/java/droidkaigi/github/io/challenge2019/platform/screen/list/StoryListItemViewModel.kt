@@ -13,8 +13,4 @@ class StoryListItemViewModel(val story: Story) : ViewModel() {
     val scoreAndAuthor = "${story.score} points by ${story.author}"
     val isRead: Boolean
         get() = story.isRead
-
-    fun read() {
-        story.read()
-    }
 }

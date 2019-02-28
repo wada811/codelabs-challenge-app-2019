@@ -25,6 +25,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.Singles
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class StoryDetailActivity : AppCompatActivity() {
 
@@ -84,6 +85,7 @@ class StoryDetailActivity : AppCompatActivity() {
                 commentAdapter.comments = comments
                 commentAdapter.notifyDataSetChanged()
             }, {
+                Timber.tag("wada811").w(it)
                 MyApplication.Instance.showError(it)
             })
             .disposeOnLifecycle(this, ON_DESTROY)
