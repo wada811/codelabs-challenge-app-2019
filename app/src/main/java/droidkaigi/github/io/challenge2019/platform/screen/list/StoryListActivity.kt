@@ -78,8 +78,12 @@ class StoryListActivity : AppCompatActivity() {
         )
         binding.itemRecyclerView.adapter = storyListItemAdapter
 
-        binding.swipeRefreshLayout.setOnRefreshListener { loadTopStories() }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.isSwipeRefreshing.set(true)
+            loadTopStories()
+        }
 
+        viewModel.isShowProgressView.set(true)
         loadTopStories()
     }
 
@@ -105,6 +109,7 @@ class StoryListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.refresh -> {
+                viewModel.isShowProgressView.set(true)
                 loadTopStories()
                 return true
             }
