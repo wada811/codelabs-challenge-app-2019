@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="droidkaigi.github.io.challenge2019.story.list.StoryListItemViewModel"
+            />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.title}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@{viewModel.isRead ? @color/disabledText: @android:color/black}"
+            app:layout_constraintEnd_toStartOf="@id/menu_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="title"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/menu_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/title"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.time}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="time"
+            />
+
+
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.url}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/time"
+            tools:text="url"
+            />
+
+        <TextView
+            android:id="@+id/points_and_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.scoreAndAuthor}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@{viewModel.isRead ? @color/disabledText: @android:color/black}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/url"
+            tools:text="100 points by author"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

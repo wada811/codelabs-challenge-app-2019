@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="droidkaigi.github.io.challenge2019.story">
+
+    <application>
+        <activity android:name=".list.StoryListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".detail.StoryDetailActivity"
+            android:parentActivityName=".list.StoryListActivity" />
+    </application>
+</manifest>

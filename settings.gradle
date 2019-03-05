@@ -1,1 +1,1 @@
-include ':app', ':binding', ':service', ':infra', ':domain'
+include ':app', ':binding', ':feature:story', ':service', ':infra', ':domain'
