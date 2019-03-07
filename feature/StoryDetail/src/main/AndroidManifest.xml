@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="droidkaigi.github.io.challenge2019.story.detail">
+
+    <application>
+        <activity
+            android:name=".StoryDetailActivity"
+            android:parentActivityName="droidkaigi.github.io.challenge2019.story.common.StoryDetailActivityAlias" />
+        <activity-alias
+            android:name="droidkaigi.github.io.challenge2019.story.common.StoryDetailActivityAlias"
+            android:targetActivity=".StoryDetailActivity" />
+    </application>
+</manifest>

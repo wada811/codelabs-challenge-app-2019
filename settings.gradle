@@ -1,1 +1,4 @@
-include ':app', ':binding', ':feature:story', ':service', ':infra', ':domain'
+include ':app'
+include ':feature:StoryCommon', ':feature:StoryList', ':feature:StoryDetail'
+include ':binding'
+include ':service', ':infra', ':domain'
