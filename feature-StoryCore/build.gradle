@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(":library-AndroidX-Activity")
+    implementation project(":library-AndroidX-AppCompat")
+    implementation project(":library-AndroidX-ConstraintLayout")
+    implementation project(":library-AndroidX-RecyclerView")
+
+    implementation project(":core-domain")
+    implementation project(":core-infra")
+    implementation project(":core-service")
+    implementation project(':core-binding')
+
+    implementation project(":library-Timber")
+    // Rx
+    implementation project(":library-RxAndroid")
+    implementation project(":library-RxJava")
+}

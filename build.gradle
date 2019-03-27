@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0-alpha06'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -18,6 +18,18 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral().mavenContent {
+            includeGroup "com.jakewharton.threetenabp"
+            includeGroup "org.threeten"
+
+        }
+        maven {
+            url "https://jitpack.io"
+            content {
+                includeGroup "com.github.wada811.LifecycleDisposable"
+                includeGroup "com.github.wada811.DataBinding-ktx"
+            }
+        }
         jcenter()
     }
 }

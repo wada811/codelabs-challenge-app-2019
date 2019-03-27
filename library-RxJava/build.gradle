@@ -1,0 +1,9 @@
+apply plugin: 'java-library'
+
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    api "io.reactivex.rxjava2:rxkotlin:2.3.0"
+    api "io.reactivex.rxjava2:rxjava:2.2.5"
+}

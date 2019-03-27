@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+}
+
+dependencies {
+    api 'com.github.wada811.LifecycleDisposable:lifecycledisposable:1.0.0'
+}

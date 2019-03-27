@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+}
+
+dependencies {
+    api 'androidx.appcompat:appcompat:1.1.0-alpha03'
+}
