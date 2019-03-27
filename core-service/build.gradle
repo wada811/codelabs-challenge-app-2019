@@ -1,29 +1,9 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-android {
-    compileSdkVersion 28
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-}
+apply from: "$rootDir/gradle/script/library.gradle"
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation project(":core-domain")
-    implementation project(":core-infra")
-
     implementation project(":library-Timber")
     implementation project(":library-RxJava")
+
+    implementation project(":core-domain")
+    implementation project(":core-infra")
 }

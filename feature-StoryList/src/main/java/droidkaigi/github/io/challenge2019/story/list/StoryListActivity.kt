@@ -17,6 +17,7 @@ import droidkaigi.github.io.challenge2019.service.Logger
 import droidkaigi.github.io.challenge2019.service.applicationService
 import droidkaigi.github.io.challenge2019.story.core.StoryDetailActivityAlias
 import droidkaigi.github.io.challenge2019.story.ingest.IngestManager
+import droidkaigi.github.io.challenge2019.story.list.StoryListActivityViewModel.LoadType
 import droidkaigi.github.io.challenge2019.story.list.databinding.StoryListActivityBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -75,16 +76,14 @@ class StoryListActivity : AppCompatActivity() {
         binding.itemRecyclerView.adapter = storyListItemAdapter
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.isSwipeRefreshing.set(true)
-            loadTopStories()
+            loadTopStories(LoadType.Swipe)
         }
 
-        viewModel.isShowProgressView.set(true)
-        loadTopStories()
+        loadTopStories(LoadType.Init)
     }
 
-    private fun loadTopStories() {
-        viewModel.loadTopStories()
+    private fun loadTopStories(loadType: LoadType) {
+        viewModel.loadTopStories(loadType)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ stories ->
@@ -105,8 +104,7 @@ class StoryListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.refresh -> {
-                viewModel.isShowProgressView.set(true)
-                loadTopStories()
+                loadTopStories(LoadType.Menu)
                 return true
             }
             R.id.exit -> {

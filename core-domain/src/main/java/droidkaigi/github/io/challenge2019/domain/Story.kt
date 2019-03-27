@@ -1,9 +1,11 @@
 package droidkaigi.github.io.challenge2019.domain
 
+import org.threeten.bp.ZonedDateTime
+
 data class Story(
     val id: Long,
     val author: String,
-    val time: Long,
+    val time: ZonedDateTime,
     val text: String?,
     val kids: List<Long>,
     val url: String,

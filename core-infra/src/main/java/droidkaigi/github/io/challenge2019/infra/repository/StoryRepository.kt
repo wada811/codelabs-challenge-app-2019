@@ -7,6 +7,9 @@ import droidkaigi.github.io.challenge2019.infra.db.ArticlePreferences
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 
 class StoryRepository(
     private val api: HackerNewsApi,
@@ -28,7 +31,7 @@ class StoryRepository(
                 Story(
                     response.id,
                     response.author,
-                    response.time,
+                    ZonedDateTime.ofInstant(Instant.ofEpochSecond(response.time), ZoneId.systemDefault()),
                     response.text,
                     response.kids,
                     response.url,

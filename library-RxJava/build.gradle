@@ -1,7 +1,8 @@
-apply plugin: 'java-library'
+apply from: "$rootDir/gradle/script/library.gradle"
 
-targetCompatibility = JavaVersion.VERSION_1_8
-sourceCompatibility = JavaVersion.VERSION_1_8
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     api "io.reactivex.rxjava2:rxkotlin:2.3.0"

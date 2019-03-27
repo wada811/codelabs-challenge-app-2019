@@ -5,6 +5,5 @@ repositories {
 }
 
 dependencies {
-    api 'com.jakewharton.threetenabp:threetenabp:1.2.0'
-    api project(":library-ThreeTenBP")
+    api group: 'org.threeten', name: 'threetenbp', version: '1.3.8', classifier: 'no-tzdb'
 }

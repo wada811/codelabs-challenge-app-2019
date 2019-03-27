@@ -1,7 +1,7 @@
-apply plugin: 'com.android.library'
+apply from: "$rootDir/gradle/script/library.gradle"
 
-android {
-    compileSdkVersion 28
+repositories {
+    google()
 }
 
 dependencies {

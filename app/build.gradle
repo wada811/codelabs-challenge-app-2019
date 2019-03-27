@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "droidkaigi.github.io.challenge2019"
         minSdkVersion 16
@@ -19,7 +19,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,7 +30,8 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(":library-Timber")
+    implementation project(":library-ThreeTenABP")
 
     implementation project(":core-domain")
     implementation project(":core-infra")
@@ -38,9 +39,6 @@ dependencies {
     implementation project(':core-binding')
     implementation project(":feature-StoryList")
     implementation project(":feature-StoryDetail")
-
-    implementation project(":library-Timber")
-    implementation project(":library-ThreeTenABP")
 
     implementation 'com.facebook.stetho:stetho:1.5.1'
 
