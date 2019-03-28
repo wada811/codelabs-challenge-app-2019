@@ -22,7 +22,6 @@ class StoryDetailActivityViewModel(
 
     fun getComments(): Single<List<CommentViewModel>> {
         return storyService.getComments(story)
-            .doOnSuccess { story.comments = it }
             .map { it.map(::CommentViewModel) }
     }
 }
