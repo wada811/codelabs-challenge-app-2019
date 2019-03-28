@@ -1,12 +1,10 @@
-apply from: "$rootDir/gradle/script/library.gradle"
-apply plugin: 'kotlin-kapt'
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+apply from: "$rootDir/android-databinding.gradle"
 
 android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
-    }
-    dataBinding {
-        enabled = true
     }
 }
 

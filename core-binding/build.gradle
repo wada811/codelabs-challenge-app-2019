@@ -1,11 +1,6 @@
-apply from: "$rootDir/gradle/script/library.gradle"
-apply plugin: 'kotlin-kapt'
-
-android {
-    dataBinding {
-        enabled = true
-    }
-}
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+apply from: "$rootDir/android-databinding.gradle"
 
 dependencies {
     implementation project(":library-AndroidX-AppCompat")

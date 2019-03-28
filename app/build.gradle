@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply from: "$rootDir/android-databinding.gradle"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -13,9 +13,6 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testOptions.unitTests.includeAndroidResources = true
-    }
-    dataBinding {
-        enabled = true
     }
     buildTypes {
         release {
