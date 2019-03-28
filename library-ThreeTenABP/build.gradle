@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'com.jakewharton.threetenabp:threetenabp:1.2.0'
+    api project(":library-ThreeTenBP")
+}

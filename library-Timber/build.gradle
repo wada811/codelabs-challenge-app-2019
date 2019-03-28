@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'com.jakewharton.timber:timber:4.7.1'
+}

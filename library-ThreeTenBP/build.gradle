@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api group: 'org.threeten', name: 'threetenbp', version: '1.3.8', classifier: 'no-tzdb'
+}

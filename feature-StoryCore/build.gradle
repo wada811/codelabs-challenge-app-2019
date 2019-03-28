@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+apply from: "$rootDir/android-databinding.gradle"
+
+android {
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+}
+
+dependencies {
+    implementation project(":library-AndroidX-Activity")
+    implementation project(":library-AndroidX-AppCompat")
+    implementation project(":library-AndroidX-ConstraintLayout")
+    implementation project(":library-AndroidX-RecyclerView")
+
+    implementation project(":library-Timber")
+    // Rx
+    implementation project(":library-RxAndroid")
+    implementation project(":library-RxJava")
+
+    implementation project(":core-domain")
+    implementation project(":core-infra")
+    implementation project(":core-service")
+    implementation project(':core-binding')
+
+}

@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+
+repositories {
+    google()
+}
+
+dependencies {
+    api 'androidx.appcompat:appcompat:1.1.0-alpha03'
+}

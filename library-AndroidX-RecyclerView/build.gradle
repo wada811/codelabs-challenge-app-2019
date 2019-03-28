@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+
+repositories {
+    google()
+}
+
+dependencies {
+    api 'androidx.recyclerview:recyclerview:1.1.0-alpha03'
+}

@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    api 'com.github.wada811.LifecycleDisposable:lifecycledisposable:1.0.0'
+}

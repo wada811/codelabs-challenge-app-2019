@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/android-library.gradle"
+
+repositories {
+    google()
+}
+
+dependencies {
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+}
