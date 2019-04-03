@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 apply from: "$rootDir/android-library.gradle"
 
 dependencies {
-    implementation project(":library-Timber")
-    implementation project(":library-RxJava")
+    implementation Deps.timber
+    implementation Deps.rxKotlin
+    implementation Deps.rxJava
 
     implementation project(":core-domain")
     implementation project(":core-infra")

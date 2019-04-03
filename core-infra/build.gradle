@@ -5,9 +5,10 @@ apply plugin: 'kotlin-kapt'
 dependencies {
     implementation project(":core-domain")
 
-    implementation project(":library-Timber")
-    implementation project(":library-ThreeTenBP")
-    implementation project(":library-RxJava")
+    implementation Deps.timber
+    implementation Deps.threeTenBP
+    implementation Deps.rxKotlin
+    implementation Deps.rxJava
 
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'

@@ -27,8 +27,9 @@ android {
 }
 
 dependencies {
-    implementation project(":library-Timber")
-    implementation project(":library-ThreeTenABP")
+    implementation Deps.timber
+    implementation Deps.threeTenABP
+    implementation Deps.threeTenBP
 
     implementation project(":core-domain")
     implementation project(":core-infra")
