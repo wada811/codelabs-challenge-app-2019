@@ -9,15 +9,16 @@ android {
 }
 
 dependencies {
-    implementation project(":library-AndroidX-Activity")
-    implementation project(":library-AndroidX-AppCompat")
-    implementation project(":library-AndroidX-ConstraintLayout")
-    implementation project(":library-AndroidX-RecyclerView")
+    implementation Deps.androidxActivity
+    implementation Deps.androidxAppCompat
+implementation Deps.androidxConstraintLayout
+    implementation Deps.androidxRecyclerView
 
-    implementation project(":library-Timber")
+    implementation Deps.timber
     // Rx
-    implementation project(":library-RxAndroid")
-    implementation project(":library-RxJava")
+    implementation Deps.rxAndroid
+    implementation Deps.rxKotlin
+    implementation Deps.rxJava
 
     implementation project(":core-domain")
     implementation project(":core-infra")

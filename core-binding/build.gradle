@@ -3,6 +3,6 @@ apply from: "$rootDir/android-library.gradle"
 apply from: "$rootDir/android-databinding.gradle"
 
 dependencies {
-    implementation project(":library-AndroidX-AppCompat")
-    implementation project(":library-Timber")
+    implementation Deps.androidxAppCompat
+    implementation Deps.timber
 }

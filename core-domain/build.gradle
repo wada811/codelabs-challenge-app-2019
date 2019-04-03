@@ -2,6 +2,6 @@ apply plugin: 'com.android.library'
 apply from: "$rootDir/android-library.gradle"
 
 dependencies {
-    implementation project(":library-Timber")
-    implementation project(":library-ThreeTenBP")
+    implementation Deps.timber
+    implementation Deps.threeTenBP
 }
